@@ -1,5 +1,4 @@
 require 'pry'
-
 class Owner
 
   attr_reader :name, :species
@@ -12,81 +11,73 @@ class Owner
     @@all << self
   end
 
-  def say_species
-     "I am a #{@species}."
+  def say_species 
+    p "I am a #{@species}."
   end
 
-# Start class methods
-
-  def self.all
-    @@all
+  def self.all 
+    @@all 
   end
 
-  def self.count
-    @@all.count
+  def self.count 
+    self.all.count
   end
 
   def self.reset_all
-    @@all.clear
+    self.all.clear
   end
 
-  def cats
-    Cat.all.select { |cat|
-  cat.owner == self}
-  end
+  def cats 
+    Cat.all.select do |cat|
+      cat.owner == self
+    end
+  end 
 
   def dogs
-    Dog.all.select {|dog|
-  dog.owner == self}
+    Dog.all.select do |dog|
+      dog.owner == self
+    end
   end
 
-  def buy_cat(name)
-    new_pet = Cat.new(name,self)
-    # binding.pry
+  def buy_cat(cat_name)
+    Cat.new(cat_name,self)
   end
 
-  def buy_dog(name)
-    new_pet = Dog.new(name,self)
-    # binding.pry
+  def buy_dog(dog_name)
+    Dog.new(dog_name,self)
   end
 
   def walk_dogs
-    self.dogs.each do |dog|
+    Dog.all.each do |dog|
       dog.mood = "happy"
     end
-    # binding.pry
   end
-
+  
   def feed_cats
-    self.cats.each do |cat|
-      cat.mood =  "happy"
+    Cat.all.each do |cat|
+      cat.mood = "happy"
     end
   end
 
   def sell_pets
-    self.cats.each do |cat|
-      cat.mood ="nervous"
-      cat.owner = nil
-    end   
-    self.cats.clear
-    self.dogs.each do |dog|
-      dog.mood ="nervous"
-      dog.owner = nil
+    self.cats.each do |pet|
+      pet.mood = "nervous"
+      pet.owner = nil
     end
-    self.dogs.clear
+    self.dogs.each do |pet|
+      pet.mood = "nervous"
+      pet.owner = nil
+    end
   end
 
-    # binding.pry
-
   def list_pets
-    self.cats.each do |cat|
-      cat.name
-    end
     self.dogs.each do |dog|
-      dog.name
+      puts dog.name
+      end
+    self.cats.each do |cat|
+    puts cat.name
     end
-    
-    "I have #{self.dogs.count} dog(s), and #{self.cats.count} cat(s)."
+    p "I have #{self.dogs.length} dog(s), and #{self.cats.length} cat(s)."
 
   end
 end
